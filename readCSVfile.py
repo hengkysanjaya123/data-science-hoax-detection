@@ -10,8 +10,9 @@ with open('finalProjectDataset/trainingDataset.csv', mode='r', errors='ignore') 
     #     line_count += 1
     #     print(row)
     # print(f'Processed {line_count} lines.')
-    trainingdata = pandas.read_csv(csv_file, sep=';', header=None)
-    # print(trainingdata)
+    trainingdata = pandas.read_csv(csv_file, sep=';', header=0)
+    trainingdata['tagging']=(trainingdata['tagging'] == "Valid").astype(int)
+    print(trainingdata)
     # print(trainingdata.filter(like="Hoax"))
 #
 for index, row in trainingdata.iterrows():
