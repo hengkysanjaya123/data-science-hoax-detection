@@ -1,4 +1,4 @@
-# Hoax Detection 
+# Hoax Detection with Machine Learning
 ## Intelligent Systems Final Project
 ### Prepared By:
 + Hengky Sanjaya
