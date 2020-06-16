@@ -13,7 +13,7 @@ text = 'VALID acara hari ini'
 if('Valid' in text):
     print(text[5:])
 
-f = open('trainingDataset.csv', 'r')
+f = open('TestData.csv', 'r')
 
 data = f.read()
 data = data.replace('\n','')
@@ -21,7 +21,7 @@ data = data.replace('\n','')
 new_data = data.split(';')
 
 
-with open('new_trainingdataset.csv', 'w', newline='') as file:
+with open('new_TestData.csv', 'w', newline='') as file:
     writer = csv.writer(file)
     writer.writerow(["no", "berita", "tagging"])
     for i in range(len(new_data)-1):

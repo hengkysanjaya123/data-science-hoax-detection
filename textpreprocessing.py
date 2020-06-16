@@ -24,9 +24,9 @@ def preprocess(text):
 	processed_text = ' '.join(ps.stem(token) for token in word_tokenize(text))
 	token_list.append(processed_text)
 	x = vectorizer.fit_transform(token_list)
-	print(token_list)
-	print(x)
+# 	print(token_list)
+# 	print(x)
 	return x
 
 #Example 
-preprocess("mereka pada dimakan para pemakan memakan untuk minum dan diminum setelah meminum")
+# preprocess("mereka pada dimakan para pemakan memakan untuk minum dan diminum setelah meminum")
