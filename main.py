@@ -19,6 +19,7 @@ frame = pd.read_csv('new_trainingdataset.csv', error_bad_lines=False, encoding='
 frame2 = pd.read_csv('new_TestData.csv', error_bad_lines=False, encoding='latin1')
 
 
+
 print(frame)
 #Inspecing Shape
 frame.shape
@@ -200,4 +201,3 @@ tokens_with_weights = sorted(list(zip(feature_names, clf.coef_[0])))
 for i in tokens_with_weights:
     print(i)
     break
-
