@@ -12,6 +12,7 @@ from sklearn.linear_model import PassiveAggressiveClassifier
 #Reading data as pandas dataframe
 frame = pd.read_csv('new_trainingdataset.csv', error_bad_lines=False, encoding='latin1')
 
+
 print(frame)
 #Inspecing Shape
 frame.shape
