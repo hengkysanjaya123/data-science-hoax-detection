@@ -13,20 +13,13 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 # Removes prefixes, suffixes, punctuation 	
 # Converts all text to lower case
 # returns TF-IDF of the text
-def preprocess(text):
-	token_list = []
-	vectorizer = TfidfVectorizer()
-	factory = StemmerFactory()
-	stop_factory = StopWordRemoverFactory()
-	ps = factory.create_stemmer()
-	stopword = stop_factory.create_stop_word_remover()
-	text = stopword.remove(text)
-	processed_text = ' '.join(ps.stem(token) for token in word_tokenize(text))
-	token_list.append(processed_text)
-	x = vectorizer.fit_transform(token_list)
-# 	print(token_list)
-# 	print(x)
-	return x
+def stem(text):
+    factory = StemmerFactory()
+    ps = factory.create_stemmer()
+    processed_text = ' '.join(ps.stem(token) for token in word_tokenize(text))
+    return processed_text
+
+
 
 #Example 
 # preprocess("mereka pada dimakan para pemakan memakan untuk minum dan diminum setelah meminum")

@@ -11,21 +11,22 @@ from sklearn.linear_model import PassiveAggressiveClassifier
 
 from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
 
-from textpreprocessing import preprocess
+from textpreprocessing import stem
 from sklearn import svm
+import timeit
 
 def hoax_detection(berita):
     #Reading data as pandas dataframe
     frame = pd.read_csv('new_trainingdataset.csv', error_bad_lines=False, encoding='latin1')
     # frame2 = pd.read_csv('new_TestData.csv', error_bad_lines=False, encoding='latin1')
     
+    berita = stem(berita)
     data = {
                 'no' : ['1'],
                 'berita' : [berita],
                 'tagging': ['Hoax']
         }
     frame2 = pd.DataFrame(data, columns=['no','berita','tagging'])
-    
     
     #Inspecing Shape
     frame.shape
@@ -88,23 +89,20 @@ def hoax_detection(berita):
     factory = StopWordRemoverFactory()
     stopwords = factory.get_stop_words()
     
-    # print(stopwords)
-    
-    
-    # Initialize the `count_vectorizer` 
-    count_vectorizer = CountVectorizer(lowercase=True, stop_words=frozenset(stopwords))
-    
+ 
+       
     # count_vectorizer = case folding, tokenizing, remove stopwords
     # analyze = count_vectorizer.build_analyzer()
     # analyze("Saya mau MAKAN dimakan di tempat makan")
     # print(count_vectorizer)
-    
+    # count_vectorizer = CountVectorizer(lowercase=True, stop_words=frozenset(stopwords))
+
     # Fit and transform the training data.
-    count_train = count_vectorizer.fit_transform(X_train)
+    # count_train = count_vectorizer.fit_transform(X_train)
     
-    print(count_train)
+    # print(count_train)
     # Transform the test set 
-    count_test = count_vectorizer.transform(X_test)
+    # count_test = count_vectorizer.transform(X_test)
     
     
     # Initialize the `tfidf_vectorizer` 
@@ -124,7 +122,7 @@ def hoax_detection(berita):
     print(tfidf_vectorizer.get_feature_names()[-10:])
     
     # Get the feature names of `count_vectorizer` 
-    print(count_vectorizer.get_feature_names()[0:10])
+    # print(count_vectorizer.get_feature_names()[0:10])
     
     
     import matplotlib.pyplot as plt
@@ -161,40 +159,48 @@ def hoax_detection(berita):
         plt.tight_layout()
         plt.ylabel('True label')
         plt.xlabel('Predicted label')
-        plt.show()
+        # plt.show()
     
-    
+    start = timeit.default_timer()
+
     clf = MultinomialNB() 
     clf.fit(tfidf_train, y_train)
     pred = clf.predict(tfidf_test)
     score = accuracy_score(y_test, pred)
-    
     multinomialpred = pred
     print("#Result:#Multinomial#", pred)
     print("accuracy:   %0.3f" % score)
     cm = confusion_matrix(y_test, pred, labels=['Hoax', 'Valid'])
+    stop = timeit.default_timer()
+    print('Time Multinomial: ', stop - start)  
     plot_confusion_matrix(cm, classes=['Hoax', 'Valid'], title='MultinomialNB Confusion Matrix')
     
+    
+    start = timeit.default_timer()
     linear_clf = PassiveAggressiveClassifier()
     linear_clf.fit(tfidf_train, y_train)
     pred = linear_clf.predict(tfidf_test)
     score = accuracy_score(y_test, pred)
-    
     passiveaggressivepred = pred
     print("#Result:#PassiveAggressiveClassifier#", pred)
     print("accuracy:   %0.3f" % score)
     cm = confusion_matrix(y_test, pred, labels=['Hoax', 'Valid'])
+    stop = timeit.default_timer()
+    print('Time PassiveAggressiveClassifier: ', stop - start) 
     plot_confusion_matrix(cm, classes=['Hoax', 'Valid'], title='PassiveAggressiveClassifier Confusion Matrix')
     
+    
+    start = timeit.default_timer()
     linear_clf_svm = svm.SVC()
     linear_clf_svm.fit(tfidf_train, y_train)
     pred = linear_clf_svm.predict(tfidf_test)
     score = accuracy_score(y_test, pred)
     print("accuracy:   %0.3f" % score)
-    print("#Result:#SVM#", pred)
-    
+    print("#Result:#SVM#", pred)    
     svmpred = pred
     cm = confusion_matrix(y_test, pred, labels=['Hoax', 'Valid'])
+    stop = timeit.default_timer()
+    print('Time SVM: ', stop - start) 
     plot_confusion_matrix(cm, classes=['Hoax', 'Valid'],title='SVM Confusion Matrix')
     
     

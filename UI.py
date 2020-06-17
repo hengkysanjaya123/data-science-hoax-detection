@@ -19,10 +19,6 @@ class Window(Frame):
         Frame.__init__(self, master)
         self.master = master
         self.init_window()
-        # self.text = tk.StringVar()
-        # self.text.set("Result: ")
-        # self.label = tk.Label(self.root, textvariable=self.text)
-        # self.label.place(x=10, y=450, anchor='sw')
 
     #Creation of init_window
     def init_window(self):
@@ -38,23 +34,22 @@ class Window(Frame):
 
 def read():
     code = txt.get("1.0","end-1c")
-    # text_var.set('abc')
+    # text_var.set('abc') 
     
-    text.set('')
+    text.set('Result: ')
+    text2.set('')
+    text3.set('')
+    text4.set('')
     
     result = hoax_detection(code)
     
 
-    text.set('Result: \nMultinomial:' + str(result['multinomial']) + '\nPassive Aggresive:' + str(result['passive']) + '\nSVM:' + str(result['svm']))
-    # print(res)
+    # text.set('Result: \nMultinomial:' + str(result['multinomial']) + '\nPassive Aggresive:' + str(result['passive']) + '\nSVM:' + str(result['svm']))
+    text2.set('Multinomial:' + str(result['multinomial']))
+    text3.set('Passive Aggresive:' + str(result['passive']))
+    text4.set('SVM:' + str(result['svm']))
     
-    # w.set('tes')
-    # print(code)
-
-    # print("error (ui.py)", error_message)
-    #
-    # if(error_message != None):
-    #     text_var.set(str(error_message))
+    
 root=Tk()
 root.title("Hoax Detection Project")
 
@@ -76,12 +71,28 @@ text.set("Result: ")
 label = tk.Label(root, textvariable=text)
 label.place(x=10, y=450, anchor='sw')
 
+
+text2 = tk.StringVar(root)
+text2.set("")
+label2 = tk.Label(root, textvariable=text2)
+label2.place(x=10, y=475, anchor='sw')
+
+
+
+text3 = tk.StringVar(root)
+text3.set("")
+label3 = tk.Label(root, textvariable=text3)
+label3.place(x=10, y=500, anchor='sw')
+
+
+text4 = tk.StringVar(root)
+text4.set("")
+label4 = tk.Label(root, textvariable=text4)
+label4.place(x=10, y=525, anchor='sw')
+
 # w = tk.Label(root, text="Hello Tkinter!")
 # w.place(x=10, y=450, anchor='sw')
 # w.pack()
-
-
-# txt.tag_config('comment', foreground='green')
 
 menu = Menu(root)
 root.config(menu=menu)
