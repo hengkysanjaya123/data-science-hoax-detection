@@ -40,7 +40,8 @@ def read():
     code = txt.get("1.0","end-1c")
     # text_var.set('abc')
     
-    text.set('hello world')
+    text.set('')
+    
     result = hoax_detection(code)
     
 
