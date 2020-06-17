@@ -2,10 +2,6 @@ from tkinter import filedialog
 from tkinter import *
 from tkinter import scrolledtext
 from tkinter import messagebox
-# import PIL as pl
-# from PIL import Image, ImageTk
-# import PIL.Image
-# import PIL.ImageTk
 import os
 import tkinter.font as tkFont
 from main import hoax_detection
@@ -76,7 +72,6 @@ text2 = tk.StringVar(root)
 text2.set("")
 label2 = tk.Label(root, textvariable=text2)
 label2.place(x=10, y=475, anchor='sw')
-
 
 
 text3 = tk.StringVar(root)

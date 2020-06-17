@@ -8,9 +8,7 @@ from sklearn.metrics import confusion_matrix
 import numpy as np
 import itertools
 from sklearn.linear_model import PassiveAggressiveClassifier
-
 from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
-
 from textpreprocessing import stem
 from sklearn import svm
 import timeit
@@ -73,8 +71,6 @@ def hoax_detection(berita):
     X_test = frame2['berita']
     y_test = y2
     print(len(X_test))
-    
-    
     
     # stemming
     # print(frame['berita'][0])
